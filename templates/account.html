@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%load static%}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accounts</title>
+    <link rel="stylesheet" href=" {% static "account.css" %}">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header style="margin: 5%;">
+        <div class="logo">
+          <i class="ri-code-line python-icon"></i>
+          <h1>Accounts</h1>
+        </div>
+      </header>
+
+      <div class="card balance-card">
+        <div class="balance-info">
+          <h2>Total Balance</h2>
+          <p class="balance">
+            Rs. {% for b in balance %}{{b.amount}}.00{% endfor %}
+          </p>
+          <div class="transactions">
+            <div class="transaction incoming">
+              <span class="arrow">↓</span>
+              <span class="amount">+Rs. {{incoming}}.00</span>
+              <span class="label">Incoming</span>
+            </div>
+            <div class="transaction outgoing">
+              <span class="arrow">↑</span>
+              <span class="amount">-Rs. {{outgoing}}.00</span>
+              <span class="label">Outgoing</span>
+            </div>
+          </div>
+        </div>
+        <div class="atm-card">
+          <div class="card-chip"></div>
+          <div class="card-number">**** **** **** 1234</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Incoming Transactions</h3>
+        <ul class="transaction-list">
+          {% for item in incoming_transactions %}
+          <li class="transaction-item">
+            <span class="transaction-name">Deposited</span>
+            <span class="transaction-amount incoming"
+              >+Rs. {{item.amount}}.00</span
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div style="margin-bottom: 100px" class="card">
+        <h3>Outgoing Transactions</h3>
+        <ul class="transaction-list">
+          {% for item in outgoing_transactions %}
+          <li class="transaction-item">
+            <span class="transaction-name">Withdrawn</span>
+            <span class="transaction-amount outgoing"
+              >-Rs. {{item.amount}}.00</span
+            >
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% include "nav.html" %}
+    </div>
+  </body>
+</html>

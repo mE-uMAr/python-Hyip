@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%load static%}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Community Platform</title>
+    <link rel="stylesheet" href='{% static "home.css" %}' />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+</head>
+<body>
+  <nav class="bottom-nav">
+    <button><a style="display: flex; flex-direction: column;text-decoration: none; color: #fff;" href='{% url "home" %}'><i class="ri-home-line"></i><span>Home</span></a></button>
+    <button><a style="display: flex; flex-direction: column;text-decoration: none; color: #fff;" href='{% url "account" %}'><i class="ri-bank-line"></i><span>Account</span></a></button>
+    <button><a style="display: flex; flex-direction: column;text-decoration: none; color: #fff;" href='{% url "invest" %}'><i class="ri-money-dollar-circle-line"></i><span>Invest</span></a></button>
+    <button><a style="display: flex; flex-direction: column;text-decoration: none; color: #fff;" href='{% url "invite" %}'><i class="ri-user-add-line"></i><span>Invite</span></a></button>
+    <button><a style="display: flex; flex-direction: column;text-decoration: none; color: #fff;" href='{% url "profile" %}'><i class="ri-user-line"></i><span>Profile</span></a></button>
+  </nav>
+</body>
+</head>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%load static%}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In</title>
+    <link rel="stylesheet" href=" {% static "login.css" %}">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <span class="back-arrow"
+          ><a
+            style="
+              text-decoration: none;
+              color: #fff;
+              border: 1px solid #fff;
+              padding: 5px 9px 8px 9px;
+              border-radius: 5px;
+            "
+            href="/signup"
+            >←</a
+          ></span
+        >
+        Sign up
+      </div>
+      {% if messages %} {% for message in messages %}
+      <div
+        style="width: 70%; height: auto; padding: 3vw; border-radius: 30px; background-color: 
+      {% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}gray{% endif %}; 
+      color: white;"
+      >
+        {{ message }}
+      </div>
+      {% endfor %} {% endif %}
+
+      <h1>Log in</h1>
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-container">
+          <div class="form-overlay">
+            <div class="phone-input">
+              <span class="country-code">+92</span>
+              <input name="phone" type="tel" placeholder="Please input phone" />
+            </div>
+            <input
+              name="password"
+              type="password"
+              placeholder="Please input Password"
+            />
+
+            <div class="remember-me">
+              <label>
+                <input type="checkbox" />
+                <span>Remember me</span>
+              </label>
+            </div>
+            <button type="submit" class="login-button">Log in</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

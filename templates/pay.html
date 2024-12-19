@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirm Payment</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, #e6f2ff, #b3d9ff);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .form-container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 350px;
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      .payment-info {
+        background-color: #f0f0f0;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        color: red;
+      }
+      .upload-info {
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+      input[type="file"] {
+        margin-bottom: 1rem;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .python-logo {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 1rem;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <svg
+        viewBox="0 0 256 255"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="xMinYMin meet"
+        class="python-logo"
+      >
+        <defs>
+          <linearGradient
+            x1="12.959%"
+            y1="12.039%"
+            x2="79.639%"
+            y2="78.201%"
+            id="a"
+          >
+            <stop stop-color="#387EB8" offset="0%" />
+            <stop stop-color="#366994" offset="100%" />
+          </linearGradient>
+          <linearGradient
+            x1="19.128%"
+            y1="20.579%"
+            x2="90.742%"
+            y2="88.429%"
+            id="b"
+          >
+            <stop stop-color="#FFE052" offset="0%" />
+            <stop stop-color="#FFC331" offset="100%" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"
+          fill="url(#a)"
+        />
+        <path
+          d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"
+          fill="url(#b)"
+        />
+      </svg>
+      <h1>Confirm Payment</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="payment-info">
+          {% for a in account %} Send: "{{amount}}" to "{{a.name}}"<br />
+          with account number: {{a.acc_number}} {% endfor %}
+        </div>
+        <p class="upload-info">After payment, upload Payslip *</p>
+        <input
+          name="slip"
+          type="file"
+          accept="image/*,.pdf"
+          required
+          aria-label="Upload Payslip"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

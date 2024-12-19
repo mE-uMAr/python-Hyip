@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%load static%}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invite</title>
+    <link rel="stylesheet" href=" {% static "invite.css" %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header style="margin: 5%">
+        <div class="logo">
+          <i class="ri-code-line python-icon"></i>
+          <h1>Invite</h1>
+        </div>
+      </header>
+
+      <div class="card invite-tasks">
+        <div class="blue-shape"></div>
+        <h2>Invite tasks</h2>
+        <p>Invite friends to register and get Rs.3.00, up to Rs.150</p>
+        <div class="reward">Rs.150</div>
+        <div class="progress">
+          <div class="progress-item">
+            <h3>0/50</h3>
+            <p>Invite people</p>
+          </div>
+          <div class="progress-item">
+            <h3>Rs. 0.00</h3>
+            <p>Cumulative rewards</p>
+          </div>
+          <div class="progress-item">
+            <span class="undone">Undone</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="invite-code">
+          <img src="vw-passat.jpg" alt="Invite code icon" />
+          <div class="invite-code-info">
+            <h3>Invite code</h3>
+            <p>2JLOUQ</p>
+          </div>
+          <button class="copy-btn">Copy</button>
+        </div>
+        <div class="invite-code">
+          <div class="invite-code-info">
+            <h3>Invite link</h3>
+            <p>https://127.0.0.1:8000</p>
+          </div>
+          <button class="copy-btn">Copy</button>
+        </div>
+      </div>
+
+      <h2>Mission rewards</h2>
+      <div class="card mission-rewards">
+        <h3>0/1</h3>
+        <p>Inveited</p>
+        <p>Invite 1 people to recharge and get a reward of Rs.100</p>
+        <button class="receive-btn">Receive</button>
+      </div>
+      {% include "nav.html" %}
+    </div>
+  </body>
+</html>

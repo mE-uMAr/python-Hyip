@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {%load static%}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Community Platform</title>
+    <link rel="stylesheet" href="{% static "home.css" %}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <header>
+        <div class="logo">
+          <i class="ri-code-line python-icon"></i>
+          <h1>Python Community</h1>
+        </div>
+        <button class="cta-button">Let's code it</button>
+      </header>
+
+      <div class="marquee">
+        <p>
+          Welcome to the Python Community Platform! Join us to learn, share, and
+          grow your Python skills.
+        </p>
+      </div>
+
+      <nav class="main-nav">
+        <button>
+          <a
+            style="
+              display: flex;
+              flex-direction: column;
+              text-decoration: none;
+              color: #fff;
+            "
+            href="/balance/deposit/"
+            ><i class="ri-wallet-3-line"></i>Recharge</a
+          >
+        </button>
+        <button>
+          <a
+            style="
+              display: flex;
+              flex-direction: column;
+              text-decoration: none;
+              color: #fff;
+            "
+            href="/balance/withdraw/"
+            ><i class="ri-cash-line"></i>Withdraw</a
+          >
+        </button>
+        <button>
+          <a
+            style="
+              display: flex;
+              flex-direction: column;
+              text-decoration: none;
+              color: #fff;
+            "
+            href="/invest/"
+            ><i class="ri-money-dollar-circle-line"></i><span>Invest</span></a
+          >
+        </button>
+        <button>
+          <a
+            style="
+              display: flex;
+              flex-direction: column;
+              text-decoration: none;
+              color: #fff;
+            "
+            href="/invest/"
+            ><i class="ri-user-add-line"></i><span>Invite</span></a
+          >
+        </button>
+      </nav>
+
+      <section class="courses">
+        <h2>Explore Programes</h2>
+        <div class="course-list">
+          {% for a in calc %}
+          <div class="course-card">
+            <h3>{{a.vip.vipName}}</h3>
+
+            <img src="{{a.vip.vip_image.url}}" alt="Python Basics" />
+            <div class="course-info">
+              <div>
+                <p>{{a.vip.price}}</p>
+                <p>Price</p>
+              </div>
+              <div>
+                <p>{{a.hourly | floatformat:2}} XP/hr</p>
+                <p>Hourly XP</p>
+              </div>
+              <div>
+                <p>{{a.vip.daily}} XP/day</p>
+
+                <p>Daily XP</p>
+              </div>
+            </div>
+            <form method="post">
+              {% csrf_token %}
+              <input type="hidden" name="income" value="{{ a.vip.daily }}" />
+              <input type="hidden" name="vip" value="{{ a.vip.vipName }}" />
+              <input type="hidden" name="price" value="{{a.vip.price}}" />
+              <button type="submit" class="enroll-button">Enroll Now</button>
+            </form>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+    <br /><br /><br /><br /><br />
+
+    {% include "nav.html" %}
+  </body>
+</html>
