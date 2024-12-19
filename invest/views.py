@@ -8,7 +8,11 @@ from balances.models import *
 @login_required
 def home(request):
     user = request.user
-    balance= Balance.objects.get(user=user)
+    try:
+        balance = Balance.objects.get(user=user)
+    except Balance.DoesNotExist:
+        balance = Balance.objects.create(user = user , amount = 10)
+
     user_balance = balance.amount
     if request.method == 'POST':
         vip_name = request.POST.get('vip')
