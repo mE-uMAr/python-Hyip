@@ -15,6 +15,15 @@
     />
   </head>
   <body>
+    {% if messages %} {% for message in messages %}
+    <div
+      style="width: 93%; height: auto; padding: 1.5vw; border-radius: 5px; background-color: 
+      {% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}gray{% endif %}; 
+      color: white; margin :2vw;"
+    >
+      {{ message }}
+    </div>
+    {% endfor %} {% endif %}
     <div class="container">
       <header style="margin: 5%">
         <div class="logo">
@@ -25,50 +34,71 @@
 
       <div class="card invite-tasks">
         <div class="blue-shape"></div>
-        <h2>Invite tasks</h2>
-        <p>Invite friends to register and get Rs.3.00, up to Rs.150</p>
-        <div class="reward">Rs.150</div>
+        <h1>Invite tasks</h1>
+        <p>Invite friends to register and get Rewards</p>
+        <hr />
+        <h3>Reward per referral : Rs. {{ref_reward}}</h3>
         <div class="progress">
           <div class="progress-item">
-            <h3>0/50</h3>
+            <h3>
+              {% if refs <= max_ref %}{{refs}}{% else %}{{0}}{% endif %}
+              /{{max_ref}}
+            </h3>
             <p>Invite people</p>
           </div>
           <div class="progress-item">
-            <h3>Rs. 0.00</h3>
-            <p>Cumulative rewards</p>
-          </div>
-          <div class="progress-item">
-            <span class="undone">Undone</span>
+            <h3>Rs. {{total_reward}}</h3>
+            <p>Your Cumulative rewards</p>
           </div>
         </div>
       </div>
 
       <div class="card">
+        <hr />
         <div class="invite-code">
-          <img src="vw-passat.jpg" alt="Invite code icon" />
           <div class="invite-code-info">
             <h3>Invite code</h3>
-            <p>2JLOUQ</p>
+            <p id="code">{{code}}</p>
           </div>
-          <button class="copy-btn">Copy</button>
+          <button onclick="copyCode()" class="copy-btn">Copy</button>
         </div>
+        <br />
+        <hr />
+        <br />
         <div class="invite-code">
           <div class="invite-code-info">
             <h3>Invite link</h3>
-            <p>https://127.0.0.1:8000</p>
+            <p id="link">{{host}}/signup/{{code}}</p>
           </div>
-          <button class="copy-btn">Copy</button>
+          <button onclick="copyLink()" class="copy-btn">Copy</button>
         </div>
+        <hr />
       </div>
-
-      <h2>Mission rewards</h2>
       <div class="card mission-rewards">
-        <h3>0/1</h3>
-        <p>Inveited</p>
-        <p>Invite 1 people to recharge and get a reward of Rs.100</p>
-        <button class="receive-btn">Receive</button>
+        <h3>You have invited {{refs}} people</h3>
+        <p>Tap to receive rewards</p>
+        <form method="post" action="">
+          {% csrf_token %}
+          <input type="hidden" />
+          <button type="submit" class="receive-btn">Receive</button>
+        </form>
       </div>
+      <br /><br /><br />
       {% include "nav.html" %}
     </div>
+    <script>
+      let code = document.getElementById("code").innerHTML;
+      let link = document.getElementById("link").innerHTML;
+      console.log(code);
+      console.log(link);
+      function copyCode() {
+        navigator.clipboard.writeText(code);
+        alert("Referral code : " + code + "\nCode copied to clipboard");
+      }
+      function copyLink() {
+        navigator.clipboard.writeText(link);
+        alert("Referral link : " + link + "\nLink copied to clipboard");
+      }
+    </script>
   </body>
 </html>

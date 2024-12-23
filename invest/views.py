@@ -4,11 +4,18 @@ from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from balances.models import *
+from django.contrib.auth import get_user_model
+from referal.models import *
+User = get_user_model()
 
 @login_required
 def home(request):
     user = request.user
-    balance= Balance.objects.get(user=user)
+    try:
+        balance = Balance.objects.get(user=user)
+    except Balance.DoesNotExist:
+        balance = Balance.objects.create(user = user , amount = 10)
+
     user_balance = balance.amount
     if request.method == 'POST':
         vip_name = request.POST.get('vip')
@@ -100,7 +107,7 @@ def login_user(request):
             return redirect('/')
     return render(request , 'login.html')
 
-def signup_user(request):
+def signup_user(request , *args , **kwargs):
     if request.method == 'POST':
         p_number = request.POST['phone']
         password1 = request.POST['password1']
@@ -120,7 +127,19 @@ def signup_user(request):
             user.profile_img = profile_img
         else: 
             None
+            
         user.save()
+
+        try:
+            code = str(kwargs.get('ref_code'))
+            ref = Referal.objects.get(code = code)
+            ref_by = ref.user
+            Referal.objects.create(user = user , ref_by = ref_by)
+        except:
+            Referal.objects.create(user = user)
+            
+        Reward_add.objects.create(user = user)
+        
         messages.success(request , 'Account created successfully')
         return redirect('/') 
     return render(request , 'signup.html')
@@ -145,9 +164,6 @@ def account(request):
         outgoing_total = 0
     param = {'user':user ,'balance' : balance , 'incoming' : incoming_total , 'incoming_transactions' : incoming , 'outgoing' : outgoing_total , 'outgoing_transactions' : outgoing}
     return render(request , 'account.html', param)
-@login_required
-def invite(request):
-    return render(request , 'invite.html')
 @login_required
 def profile(request):
     user = request.user

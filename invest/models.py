@@ -10,7 +10,7 @@ class Vip(models.Model):
 
 class Balance(models.Model):
     user = models.ForeignKey(User , on_delete=models.CASCADE)
-    amount = models.IntegerField(default=0)
+    amount = models.IntegerField(default=10)
 
 class Invest(models.Model):
     user = models.ForeignKey(User , on_delete=models.CASCADE)

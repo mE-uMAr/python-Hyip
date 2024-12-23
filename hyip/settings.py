@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-j$%!p+3(34+8p5jsx2)vo_8uxi11!u(239951ul@q3ufi7^t1m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'accounts.Customuser'
 
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'invest',
     'accounts',
     'balances',
+    'referal',
 ]
 
 MIDDLEWARE = [
