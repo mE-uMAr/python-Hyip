@@ -18,3 +18,7 @@ class Invest(models.Model):
     income = models.IntegerField()
     price = models.IntegerField()
     is_active = models.BooleanField(default = True)
+
+    def __str__(self):
+        return f"{self.user.p_number} - {self.vipName}"
+    

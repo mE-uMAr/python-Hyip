@@ -14,7 +14,7 @@ def home(request):
     try:
         balance = Balance.objects.get(user=user)
     except Balance.DoesNotExist:
-        balance = Balance.objects.create(user = user , amount = 10)
+        balance = Balance.objects.create(user = user , amount = 0)
 
     user_balance = balance.amount
     if request.method == 'POST':
@@ -186,7 +186,9 @@ def profile(request):
     balance.amount = user_balance
     balance.save()
 
-    param = {'user': user, 'balance': user_balance}
+    dists = Cron.objects.all().count()
+
+    param = {'user': user, 'balance': user_balance , 'dists' : dists}
     return render(request, 'profile.html', param)
 
 def invest(request):

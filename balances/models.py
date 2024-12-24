@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from .utils import *
 User = get_user_model()
 
 class Bank(models.Model):
@@ -25,3 +26,15 @@ class Withdraw(models.Model):
     amount = models.IntegerField()
     is_approved = models.BooleanField(default=False)
     is_processed = models.BooleanField(default=False)
+
+class Cron(models.Model):
+    runTime = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return f"{self.runTime}"
+
+    def runCron(slef):
+        cron()
+    def save(self , *args , **kwargs):
+        super().save(*args , **kwargs)
+        self.runCron()
+    
