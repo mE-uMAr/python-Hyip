@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Invite</title>
-    <link rel="stylesheet" href=" {% static "invite.css" %}" />
+    <link rel="stylesheet" href="{% static 'invite.css' %}" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -13,37 +13,256 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <style>
+      :root {
+        --primary-color: #4B8BBE;
+        --secondary-color: #FFD43B;
+        --background-color: #F0F4F8;
+        --text-color: #333;
+        --card-background: #FFFFFF;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .python-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-right: 10px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin: 0;
+      }
+
+      .card {
+        background-color: var(--card-background);
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .invite-tasks {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%);
+        color: white;
+      }
+
+      .invite-tasks h2 {
+        font-size: 1.8rem;
+        margin: 0 0 15px 0;
+      }
+
+      .invite-tasks p {
+        margin: 0;
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      .progress {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 25px;
+      }
+
+      .progress-item {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 15px;
+        border-radius: 10px;
+        flex: 1;
+        margin: 0 10px;
+      }
+
+      .progress-item h3 {
+        font-size: 1.5rem;
+        margin: 0;
+      }
+
+      .progress-item p {
+        font-size: 0.9rem;
+        margin: 5px 0 0 0;
+        opacity: 0.8;
+      }
+
+      .invite-code {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .invite-code-info {
+        flex-grow: 1;
+      }
+
+      .invite-code-info h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        color: var(--primary-color);
+      }
+
+      .invite-code-info p {
+        margin: 5px 0 0 0;
+        font-size: 1rem;
+        color: var(--text-color);
+        word-break: break-all;
+      }
+
+      .copy-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .copy-btn:hover {
+        background-color: #2980b9;
+      }
+
+      .mission-rewards {
+        text-align: center;
+        background: linear-gradient(135deg, var(--secondary-color) 0%, #FFA500 100%);
+        color: var(--text-color);
+      }
+
+      .mission-rewards h3 {
+        font-size: 1.5rem;
+        margin: 0 0 10px 0;
+      }
+
+      .mission-rewards p {
+        font-size: 1rem;
+        margin: 0 0 20px 0;
+      }
+
+      .receive-btn {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      .receive-btn:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+      }
+
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--card-background);
+        display: flex;
+        justify-content: space-around;
+        padding: 15px 0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .message {
+        width: 93%;
+        padding: 15px;
+        border-radius: 10px;
+        color: white;
+        margin: 20px auto;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .message.error {
+        background-color: #e74c3c;
+      }
+
+      .message.success {
+        background-color: #2ecc71;
+      }
+
+      .message.info {
+        background-color: #3498db;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 10px;
+        }
+
+        .card {
+          padding: 20px;
+        }
+
+        .progress {
+          flex-direction: column;
+        }
+
+        .progress-item {
+          margin: 10px 0;
+        }
+      }
+    </style>
   </head>
   <body>
-    {% if messages %} {% for message in messages %}
-    <div
-      style="width: 93%; height: auto; padding: 1.5vw; border-radius: 5px; background-color: 
-      {% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}gray{% endif %}; 
-      color: white; margin :2vw;"
-    >
-      {{ message }}
-    </div>
-    {% endfor %} {% endif %}
     <div class="container">
-      <header style="margin: 5%">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      <header>
         <div class="logo">
-          <i class="ri-code-line python-icon"></i>
+          <i style="color:#FFD43B;" class="fas fa-code python-icon"></i>
           <h1>Invite</h1>
         </div>
       </header>
 
       <div class="card invite-tasks">
-        <div class="blue-shape"></div>
-        <h1>Invite tasks</h1>
-        <p>Invite friends to register and get Rewards</p>
-        <hr />
-        <h3>Reward per referral : Rs. {{ref_reward}}</h3>
+        <h2>Invite Tasks</h2>
+        <p>Invite friends to register and get rewards</p>
+        <hr>
+        <h3>Reward per referral: Rs. {{ref_reward}}</h3>
         <div class="progress">
           <div class="progress-item">
-            <h3>
-              {% if refs <= max_ref %}{{refs}}{% else %}{{0}}{% endif %}
-              /{{max_ref}}
-            </h3>
+            <h3>{% if refs <= max_ref %}{{refs}}{% else %}{{max_ref}}{% endif %}/{{max_ref}}</h3>
             <p>Invite people</p>
           </div>
           <div class="progress-item">
@@ -54,7 +273,6 @@
       </div>
 
       <div class="card">
-        <hr />
         <div class="invite-code">
           <div class="invite-code-info">
             <h3>Invite code</h3>
@@ -62,9 +280,7 @@
           </div>
           <button onclick="copyCode()" class="copy-btn">Copy</button>
         </div>
-        <br />
-        <hr />
-        <br />
+        <hr>
         <div class="invite-code">
           <div class="invite-code-info">
             <h3>Invite link</h3>
@@ -72,33 +288,34 @@
           </div>
           <button onclick="copyLink()" class="copy-btn">Copy</button>
         </div>
-        <hr />
       </div>
+
       <div class="card mission-rewards">
         <h3>You have invited {{refs}} people</h3>
         <p>Tap to receive rewards</p>
         <form method="post" action="">
           {% csrf_token %}
-          <input type="hidden" />
           <button type="submit" class="receive-btn">Receive</button>
         </form>
       </div>
-      <br /><br /><br />
-      {% include "nav.html" %}
     </div>
+
+    {% include "nav.html" %}
+
     <script>
       let code = document.getElementById("code").innerHTML;
       let link = document.getElementById("link").innerHTML;
-      console.log(code);
-      console.log(link);
+
       function copyCode() {
         navigator.clipboard.writeText(code);
-        alert("Referral code : " + code + "\nCode copied to clipboard");
+        alert("Referral code: " + code + "\nCode copied to clipboard");
       }
+
       function copyLink() {
         navigator.clipboard.writeText(link);
-        alert("Referral link : " + link + "\nLink copied to clipboard");
+        alert("Referral link: " + link + "\nLink copied to clipboard");
       }
     </script>
   </body>
 </html>
+
