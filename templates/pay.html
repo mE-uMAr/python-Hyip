@@ -1,129 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Confirm Payment</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(to bottom, #e6f2ff, #b3d9ff);
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .form-container {
-        background-color: white;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 350px;
-      }
-      h1 {
-        text-align: center;
-        color: #333;
-        margin-top: 0;
-        margin-bottom: 1.5rem;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-      .payment-info {
-        background-color: #f0f0f0;
-        padding: 1rem;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-        color: red;
-      }
-      .upload-info {
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-      }
-      input[type="file"] {
-        margin-bottom: 1rem;
-      }
-      button {
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        padding: 0.5rem;
-        border-radius: 4px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .python-logo {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 1rem;
-        display: block;
-      }
+        :root {
+            --primary-color: #306998;
+            --secondary-color: #FFD43B;
+            --text-color: #333;
+            --background-color: #f0f0f0;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e6f2ff 0%, #b3d9ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 28px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .payment-info {
+            background-color: #f8f8f8;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border: 1px solid #e0e0e0;
+        }
+
+        .payment-info p {
+            color: var(--error-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin: 1rem auto;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-info {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-input-wrapper .file-input-button {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .file-input-wrapper:hover .file-input-button {
+            background-color: #FFE873;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #265D85;
+        }
+
+        .python-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="form-container">
-      <svg
-        viewBox="0 0 256 255"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMinYMin meet"
-        class="python-logo"
-      >
-        <defs>
-          <linearGradient
-            x1="12.959%"
-            y1="12.039%"
-            x2="79.639%"
-            y2="78.201%"
-            id="a"
-          >
-            <stop stop-color="#387EB8" offset="0%" />
-            <stop stop-color="#366994" offset="100%" />
-          </linearGradient>
-          <linearGradient
-            x1="19.128%"
-            y1="20.579%"
-            x2="90.742%"
-            y2="88.429%"
-            id="b"
-          >
-            <stop stop-color="#FFE052" offset="0%" />
-            <stop stop-color="#FFC331" offset="100%" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"
-          fill="url(#a)"
-        />
-        <path
-          d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"
-          fill="url(#b)"
-        />
-      </svg>
-      <h1>Confirm Payment</h1>
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="payment-info">
-          {% for a in account %} Send: "{{amount}}" to "{{a.name}}"<br />
-          with account number: {{a.acc_number}} {% endfor %}
-        </div>
-        <p class="upload-info">After payment, upload Payslip *</p>
-        <input
-          name="slip"
-          type="file"
-          accept="image/*,.pdf"
-          required
-          aria-label="Upload Payslip"
-        />
-        <button type="submit">Submit</button>
-      </form>
+        <svg viewBox="0 0 256 255" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" class="python-logo">
+            <defs>
+                <linearGradient x1="12.959%" y1="12.039%" x2="79.639%" y2="78.201%" id="a">
+                    <stop stop-color="#387EB8" offset="0%" />
+                    <stop stop-color="#366994" offset="100%" />
+                </linearGradient>
+                <linearGradient x1="19.128%" y1="20.579%" x2="90.742%" y2="88.429%" id="b">
+                    <stop stop-color="#FFE052" offset="0%" />
+                    <stop stop-color="#FFC331" offset="100%" />
+                </linearGradient>
+            </defs>
+            <path d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z" fill="url(#a)" />
+            <path d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z" fill="url(#b)" />
+        </svg>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="payment-info">
+                <p style = "padding-left:35px;">Scan QR from your wallet</p>
+                <div class="qr-code">
+                    {% if img %}
+                    <img src="{{ img.qr.url }}" alt="QR Code" width="130" height="130">
+                    {% else %} <img src="" alt="QR code for payment" width="130" height="130" >{% endif %}
+                </div>
+                <p style="color:red;" >* if QR is not working refresh page to generate new </p>
+            </div>
+            <p class="upload-info">After payment, upload Payslip *</p>
+            <div class="file-input-wrapper">
+                <input name="slip" type="file" accept="image/*,.pdf" required aria-label="Upload Payslip" id="payslip-upload">
+                <label for="payslip-upload" class="file-input-button">Choose File</label>
+            </div>
+            <button type="submit">Confirm Payment</button>
+        </form>
     </div>
-  </body>
+    <script>
+        document.getElementById('payslip-upload').addEventListener('change', function(e) {
+            var fileName = e.target.files[0].name;
+            document.querySelector('.file-input-button').textContent = fileName;
+        });
+    </script>
+</body>
 </html>
+

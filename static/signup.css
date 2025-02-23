@@ -1,157 +1,483 @@
+:root {
+  --primary: #306998;
+  --primary-dark: #1C4B6C;
+  --secondary: #FFD43B;
+  --secondary-hover: #FFE873;
+  --error: #DC3545;
+  --success: #28A745;
+  --text-primary: #1C4B6C;
+  --text-secondary: #646464;
+  --background: #F5F5F5;
+  --card-background: #FFFFFF;
+  --border: #E1E1E1;
+  --input-background: #FFFFFF;
+  --focus-ring: rgba(48, 105, 152, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #306998; /* Python blue */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.form-card {
+  background: var(--card-background);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(28, 75, 108, 0.1);
+  width: 100%;
+  max-width: 480px;
+  padding: 2rem;
+}
+
+.nav-header {
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.back-button:hover {
+  color: var(--primary-dark);
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.alert-error {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--error);
+}
+
+.alert-success {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success);
+}
+
+.alert-svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.phone-input-container,
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.country-code {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.625rem 1rem;
+  background-color: var(--primary);
+  color: white;
+  border: 1px solid var(--primary);
+  border-right: none;
+  border-radius: 0.5rem 0 0 0.5rem;
+  font-size: 0.875rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: var(--input-background);
+  color: var(--text-primary);
+  transition: all 0.2s;
+}
+
+.phone-input-container input {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+input.invalid {
+  border-color: var(--error);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.toggle-password:hover {
+  color: var(--primary);
+}
+
+.file-upload-container {
+  position: relative;
+}
+
+.file-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-upload-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background-color: var(--secondary);
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--primary-dark);
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.file-upload-button:hover {
+  background-color: var(--secondary-hover);
+}
+
+.file-name {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.file-chosen {
+  color: var(--primary);
+}
+
+.submit-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.submit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+.submit-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+}
+
+.submit-button:hover::after {
+  animation: shimmer 1.5s infinite;
+}
+
+.arrow-icon {
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.terms-text {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-top: 1.5rem;
+}
+
+.terms-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes shimmer {
+  100% {
+      transform: translateX(100%);
   }
-  
-  .container {
-    background-color: #FFD43B; /* Python yellow */
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    padding: 30px;
-    width: 300px;
-    position: relative;
+}
+
+@media (max-width: 640px) {
+  .form-card {
+      padding: 1.5rem;
+      border-radius: 0.75rem;
   }
-  
-  .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    color: #306998; /* Python blue */
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .back-arrow a {
-    text-decoration: none;
-    color: #306998; /* Python blue */
-    border: 2px solid #306998;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-right: 10px;
-    transition: all 0.3s ease;
-  }
-  
-  .back-arrow a:hover {
-    background-color: #306998;
-    color: #FFD43B;
-  }
-  
+
   h1 {
-    color: #306998; /* Python blue */
-    text-align: center;
-    margin-bottom: 20px;
+      font-size: 1.5rem;
   }
-  
-  .form-container {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .subtitle {
+      font-size: 0.875rem;
   }
-  
-  .form-overlay {
-    display: flex;
-    flex-direction: column;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(10px);
   }
-  
-  .phone-input {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
+  to {
+      opacity: 1;
+      transform: translateY(0);
   }
-  
-  .country-code {
-    background-color: #306998; /* Python blue */
-    color: #FFD43B; /* Python yellow */
-    padding: 10px;
-    border-radius: 5px 0 0 5px;
+}
+
+.alert {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Python-themed loading animation */
+.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-top-color: var(--secondary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
   }
-  
-  input[type="tel"],
-  input[type="password"],
-  input[type="text"],
-  input[type="file"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #306998; /* Python blue */
-    border-radius: 5px;
-    font-size: 16px;
+}
+/* Add these styles to your existing CSS file */
+
+.file-upload-container {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  margin-bottom: 1rem;
+}
+
+.file-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.upload-area {
+  width: 100%;
+  min-height: 200px;
+  border: 2px dashed var(--primary);
+  border-radius: 1rem;
+  background-color: rgba(48, 105, 152, 0.03);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.upload-area.drag-over {
+  border-color: var(--secondary);
+  background-color: rgba(255, 212, 59, 0.1);
+  transform: scale(1.01);
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.image-preview-wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--primary);
+  background-color: var(--background);
+  position: relative;
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.preview-image.placeholder {
+  padding: 1.5rem;
+  object-fit: contain;
+}
+
+.upload-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-icon {
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(48, 105, 152, 0.1);
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.upload-title {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.upload-size {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Animation for drag and drop */
+@keyframes pulse {
+  0% {
+      transform: scale(1);
   }
-  
-  input[type="tel"] {
-    border-left: none;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+  50% {
+      transform: scale(1.02);
   }
-  
-  .verification-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
+  100% {
+      transform: scale(1);
   }
-  
-  .verification-container input {
-    flex-grow: 1;
-    margin-bottom: 0;
-  }
-  
-  .verification-code {
-    background-color: #306998; /* Python blue */
-    color: #FFD43B; /* Python yellow */
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .signup-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #306998; /* Python blue */
-    color: #FFD43B; /* Python yellow */
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .signup-button:hover {
-    background-color: #265D85; /* Darker Python blue */
-  }
-  
-  .terms {
-    text-align: center;
-    font-size: 12px;
-    margin-top: 15px;
-    color: #306998; /* Python blue */
-  }
-  
-  .terms a {
-    color: #306998; /* Python blue */
-    text-decoration: underline;
-  }
-  
-  /* Python logo-inspired element */
-  .container::before {
-    content: "";
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23306998" d="M50 0C22.4 0 24.6 11.1 24.6 11.1l0.1 11.5h26v3.7H16.1s-16.1-1.8-16.1 23.6 14 24.4 14 24.4h8.4v-11.7s-0.5-14 13.8-14h23.7s13.3 0.2 13.3-12.9V11.9S75.5 0 50 0zM36.5 6.6c2.6 0 4.7 2.1 4.7 4.7s-2.1 4.7-4.7 4.7-4.7-2.1-4.7-4.7 2.1-4.7 4.7-4.7z"/><path fill="%23FFD43B" d="M50.1 100c27.6 0 25.4-11.1 25.4-11.1l-0.1-11.5h-26v-3.7h34.5s16.1 1.8 16.1-23.6-14-24.4-14-24.4h-8.4v11.7s0.5 14-13.8 14H40.1s-13.3-0.2-13.3 12.9v23.8S24.6 100 50.1 100zM63.6 93.4c-2.6 0-4.7-2.1-4.7-4.7s2.1-4.7 4.7-4.7 4.7 2.1 4.7 4.7-2.1 4.7-4.7 4.7z"/></svg>');
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-  
-  
+}
+
+.file-upload-container.is-dragging .upload-area {
+  animation: pulse 1.5s infinite;
+  border-color: var(--secondary);
+  background-color: rgba(255, 212, 59, 0.1);
+}
+
+/* Error state */
+.file-upload-container.has-error .upload-area {
+  border-color: var(--error);
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+.error-message {
+  color: var(--error);
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.file-upload-container.has-error .error-message {
+  display: block;
+}

@@ -1,72 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {%load static%}
+<head>
+    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log In</title>
-    <link rel="stylesheet" href=" {% static "login.css" %}">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <span class="back-arrow"
-          ><a
-            style="
-              text-decoration: none;
-              color: #fff;
-              border: 1px solid #fff;
-              padding: 5px 9px 8px 9px;
-              border-radius: 5px;
-            "
-            href="/signup"
-            >←</a
-          ></span
-        >
-        Sign up
-      </div>
-      {% if messages %} {% for message in messages %}
-      <div
-        style="width: 70%; height: auto; padding: 3vw; border-radius: 30px; background-color: 
-      {% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}gray{% endif %}; 
-      color: white;"
-      >
-        {{ message }}
-      </div>
-      {% endfor %} {% endif %}
+    <title>Log In | Your Brand</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-container">
+        <div class="form-card">
+            <nav class="nav-header">
+                <a href="/signup" class="back-button" aria-label="Go back to signup">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 12H5M5 12L12 19M5 12L12 5"/>
+                    </svg>
+                    <span>Create Account</span>
+                </a>
+            </nav>
 
-      <h1>Log in</h1>
-      <form method="post">
-        {% csrf_token %}
-        <div class="form-container">
-          <div class="form-overlay">
-            <div class="phone-input">
-              <span class="country-code">+92</span>
-              <input name="phone" type="tel" placeholder="Please input phone" />
-            </div>
-            <input
-              name="password"
-              type="password"
-              placeholder="Please input Password"
-            />
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}" role="alert">
+                        <div class="alert-icon">
+                            {% if message.tags == 'error' %}
+                                <svg class="alert-svg" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            {% elif message.tags == 'success' %}
+                                <svg class="alert-svg" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            {% endif %}
+                        </div>
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
 
-            <div class="remember-me">
-              <label>
-                <input type="checkbox" />
-                <span>Remember me</span>
-              </label>
+            <div class="form-header">
+                <h1>Welcome Back</h1>
+                <p class="subtitle">Log in to your account to continue</p>
             </div>
-            <button type="submit" class="login-button">Log in</button>
-          </div>
+
+            <form method="post" class="login-form" novalidate>
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="phone-input-container">
+                        <div class="country-code">
+                            <span>+92</span>
+                            <svg class="chevron-down" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </div>
+                        <input 
+                            id="phone"
+                            name="phone" 
+                            type="tel" 
+                            placeholder="Enter your phone number"
+                            required
+                            autocomplete="tel"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-input-container">
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            required
+                            autocomplete="current-password"
+                        />
+                        <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                            <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember" id="remember"/>
+                        <span class="checkbox-custom"></span>
+                        <span class="label-text">Remember me</span>
+                    </label>
+                    {% comment %} <a href="#" class="forgot-password">Forgot Password?</a> {% endcomment %}
+                </div>
+
+                <button type="submit" class="submit-button">
+                    <span>Log In</span>
+                    <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14m-7-7l7 7-7 7"/>
+                    </svg>
+                </button>
+
+                {% comment %} <div class="alternative-login">
+                    <div class="divider">
+                        <span>Or continue with</span>
+                    </div>
+                    <div class="social-buttons">
+                        <button type="button" class="social-button google">
+                            <svg width="20" height="20" viewBox="0 0 24 24">
+                                <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
+                            </svg>
+                            <span>Google</span>
+                        </button>
+                        <button type="button" class="social-button apple">
+                            <svg width="20" height="20" viewBox="0 0 24 24">
+                                <path d="M17.05,11.97 C17.0382,9.71906 18.8131,8.30826 18.8891,8.25526 C17.6821,6.58346 15.8901,6.32226 15.2321,6.30126 C13.7471,6.14486 12.3141,7.19286 11.5551,7.19286 C10.7801,7.19286 9.61513,6.31986 8.36713,6.34586 C6.71713,6.37086 5.19213,7.29486 4.35613,8.77386 C2.63113,11.7829 3.91513,16.1969 5.57113,18.5899 C6.39713,19.7599 7.36613,21.0679 8.65913,20.9759 C9.91513,20.8779 10.3961,20.1399 11.8961,20.1399 C13.3801,20.1399 13.8291,20.9759 15.1441,20.9139 C16.5031,20.8779 17.3321,19.7229 18.1421,18.5449 C19.0841,17.1909 19.4661,15.8669 19.4811,15.8089 C19.4501,15.7989 17.0661,14.8639 17.0501,11.9689"/>
+                            </svg>
+                            <span>Apple</span>
+                        </button>
+                      </div>
+                    </div> {% endcomment %}
+            </form>
         </div>
-      </form>
     </div>
-  </body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password visibility toggle
+            const togglePassword = document.querySelector('.toggle-password');
+            const passwordInput = document.querySelector('#password');
+
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('show-password');
+            });
+
+            // Form validation
+            const form = document.querySelector('.login-form');
+            const submitButton = form.querySelector('.submit-button');
+
+            form.addEventListener('submit', function(e) {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    highlightInvalidFields();
+                } else {
+                    submitButton.classList.add('loading');
+                }
+            });
+
+            function highlightInvalidFields() {
+                const inputs = form.querySelectorAll('input[required]');
+                inputs.forEach(input => {
+                    if (!input.validity.valid) {
+                        input.classList.add('invalid');
+                        input.addEventListener('input', function() {
+                            this.classList.remove('invalid');
+                        }, { once: true });
+                    }
+                });
+            }
+
+            // Custom checkbox styling
+            const checkbox = document.querySelector('#remember');
+            checkbox.addEventListener('change', function() {
+                this.parentElement.classList.toggle('checked', this.checked);
+            });
+        });
+    </script>
+</body>
 </html>

@@ -1,134 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Deposit</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: linear-gradient(to bottom, #e6f2ff, #b3d9ff);
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .form-container {
-        background-color: white;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 100%;
-        max-width: 350px;
-      }
-      h1 {
-        text-align: center;
-        color: #333;
-        margin-top: 0;
-        margin-bottom: 1.5rem;
-      }
-      form {
-        display: flex;
-        flex-direction: column;
-      }
-      select,
-      input,
-      button {
-        margin-bottom: 1rem;
-        padding: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 1rem;
-      }
-      select {
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.5rem center;
-        padding-right: 2rem;
-      }
-      button {
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
-      button:hover {
-        background-color: #45a049;
-      }
-      .python-logo {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 1rem;
-        display: block;
-      }
+        :root {
+            --primary-color: #306998;
+            --secondary-color: #FFD43B;
+            --text-color: #333;
+            --background-color: #f0f0f0;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e6f2ff 0%, #b3d9ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 28px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        select,
+        input,
+        button {
+            margin-bottom: 1rem;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(48, 105, 152, 0.2);
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: #265D85;
+        }
+
+        .python-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: block;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: -0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="form-container">
-      <svg
-        viewBox="0 0 256 255"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="xMinYMin meet"
-        class="python-logo"
-      >
-        <defs>
-          <linearGradient
-            x1="12.959%"
-            y1="12.039%"
-            x2="79.639%"
-            y2="78.201%"
-            id="a"
-          >
-            <stop stop-color="#387EB8" offset="0%" />
-            <stop stop-color="#366994" offset="100%" />
-          </linearGradient>
-          <linearGradient
-            x1="19.128%"
-            y1="20.579%"
-            x2="90.742%"
-            y2="88.429%"
-            id="b"
-          >
-            <stop stop-color="#FFE052" offset="0%" />
-            <stop stop-color="#FFC331" offset="100%" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z"
-          fill="url(#a)"
-        />
-        <path
-          d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z"
-          fill="url(#b)"
-        />
-      </svg>
-      <h1>Deposit</h1>
-      <form method="post">
-        {% csrf_token %}
-        <select name="select" required>
-          <option value="" disabled selected>Select Bank</option>
-          {% for b in bank2 %}
-          <option value="{{b.name}}">{{b.name}}</option>
-          {% endfor %}
-        </select>
-        <input
-          name="account"
-          type="number"
-          placeholder="Please Enter Account Number"
-          required
-        />
-        <input
-          name="amount"
-          type="number"
-          placeholder="Please input amount"
-          required
-        />
-        <button type="submit">Submit</button>
-      </form>
+        <svg viewBox="0 0 256 255" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" class="python-logo">
+            <defs>
+                <linearGradient x1="12.959%" y1="12.039%" x2="79.639%" y2="78.201%" id="a">
+                    <stop stop-color="#387EB8" offset="0%" />
+                    <stop stop-color="#366994" offset="100%" />
+                </linearGradient>
+                <linearGradient x1="19.128%" y1="20.579%" x2="90.742%" y2="88.429%" id="b">
+                    <stop stop-color="#FFE052" offset="0%" />
+                    <stop stop-color="#FFC331" offset="100%" />
+                </linearGradient>
+            </defs>
+            <path d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zM92.802 19.66a11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13 11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.13z" fill="url(#a)" />
+            <path d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897zm34.114-19.586a11.12 11.12 0 0 1-11.13-11.13 11.12 11.12 0 0 1 11.13-11.131 11.12 11.12 0 0 1 11.13 11.13 11.12 11.12 0 0 1-11.13 11.13z" fill="url(#b)" />
+        </svg>
+        <h1>Deposit</h1>
+        <form method="post">
+            {% csrf_token %}
+            <select name="select" required>
+                <option value="" disabled selected>Select Bank</option>
+                {% for b in bank2 %}
+                <option value="{{b.name}}">{{b.name}}</option>
+                {% endfor %}
+            </select>
+            <input
+                name="account"
+                type="number"
+                placeholder="Enter Account Number"
+                required
+            />
+            <input
+                name="amount"
+                type="number"
+                placeholder="Enter Amount"
+                required
+            />
+            <p class="error-message">Deposits less than 500 will not be accepted and will be cancelled</p>
+            <button type="submit">Submit Deposit</button>
+        </form>
     </div>
-  </body>
+</body>
 </html>
+

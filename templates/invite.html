@@ -251,7 +251,7 @@
       <header>
         <div class="logo">
           <i style="color:#FFD43B;" class="fas fa-code python-icon"></i>
-          <h1>Invite</h1>
+          <h1 style="color:#fff;">Invite</h1>
         </div>
       </header>
 
@@ -276,7 +276,7 @@
         <div class="invite-code">
           <div class="invite-code-info">
             <h3>Invite code</h3>
-            <p id="code">{{code}}</p>
+            <p style="color:#FFD43B;" id="code">{{code}}</p>
           </div>
           <button onclick="copyCode()" class="copy-btn">Copy</button>
         </div>
@@ -284,7 +284,7 @@
         <div class="invite-code">
           <div class="invite-code-info">
             <h3>Invite link</h3>
-            <p id="link">{{host}}/signup/{{code}}</p>
+            <p style="color:#FFD43B;" id="link">{{host}}/signup/{{code}}</p>
           </div>
           <button onclick="copyLink()" class="copy-btn">Copy</button>
         </div>
@@ -298,7 +298,8 @@
           <button type="submit" class="receive-btn">Receive</button>
         </form>
       </div>
-    </div>
+    </div
+    <br><br/>
 
     {% include "nav.html" %}
 

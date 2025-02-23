@@ -9,7 +9,8 @@ class Bank(models.Model):
 
     def __str__(self):
         return self.name
-    
+class Qrs(models.Model):
+    qr = models.ImageField(upload_to=  "Qrs" , null=True , blank=True)
 class Deposit(models.Model):
     user = models.ForeignKey(User , on_delete=models.CASCADE)
     bank = models.CharField(max_length=150)
@@ -37,4 +38,3 @@ class Cron(models.Model):
     def save(self , *args , **kwargs):
         super().save(*args , **kwargs)
         self.runCron()
-    

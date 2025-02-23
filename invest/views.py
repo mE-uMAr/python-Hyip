@@ -35,7 +35,7 @@ def home(request):
             return HttpResponse('''<style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #000000;
+        background-color: #4b8abe;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -84,7 +84,7 @@ def home(request):
       <a href="/balance/deposit/" class="home-button">Recharge Now</a>
     </div></body>''')
     vip_all = Vip.objects.all()
-    calc_hourly=[] 
+    calc_hourly=[]
     for vip in vip_all:
         hourly = vip.daily/24
         calc_hourly.append({'vip' : vip , 'hourly' : hourly})
@@ -97,7 +97,7 @@ def login_user(request):
         password = request.POST['password']
         if not User.objects.filter(p_number = p_number).exists():
             messages.error(request , "User dosn't exist")
-            return redirect('/signup/') 
+            return redirect('/signup/')
         user = authenticate(p_number = p_number , password = password)
         if user is None:
             messages.error(request , 'Password is incorrect !!')
@@ -112,22 +112,21 @@ def signup_user(request , *args , **kwargs):
         p_number = request.POST['phone']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        code = request.POST.get('code')
-        code_in = request.POST['code-in']
+
         profile_img = request.FILES.get('profile_image')
-    
+
         if password1==password2:
             password = password1
         else:
             messages.error(request , "Mismatches try to resolve error first")
-        
+
         user = User(p_number=p_number)
         user.set_password(password)
         if profile_img:
             user.profile_img = profile_img
-        else: 
+        else:
             None
-            
+
         user.save()
 
         try:
@@ -137,11 +136,11 @@ def signup_user(request , *args , **kwargs):
             Referal.objects.create(user = user , ref_by = ref_by)
         except:
             Referal.objects.create(user = user)
-            
+
         Reward_add.objects.create(user = user)
-        
+
         messages.success(request , 'Account created successfully')
-        return redirect('/') 
+        return redirect('/')
     return render(request , 'signup.html')
 
 
@@ -173,14 +172,14 @@ def profile(request):
     withdraws = Withdraw.objects.filter(user=user, is_approved=True, is_processed=False)
 
     for deposit in deposits:
-        user_balance += int(deposit.amount) 
+        user_balance += int(deposit.amount)
         deposit.is_approved = False
-        deposit.is_processed = True  
+        deposit.is_processed = True
         deposit.save()
     for withdraw in withdraws:
-        user_balance -= int(withdraw.amount) 
+        user_balance -= int(withdraw.amount)
         withdraw.is_approved = False
-        withdraw.is_processed = True  
+        withdraw.is_processed = True
         withdraw.save()
 
     balance.amount = user_balance
